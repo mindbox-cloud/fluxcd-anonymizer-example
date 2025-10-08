@@ -1,0 +1,18 @@
+# Development environment values for CloudNativePG
+# This file can be used to override default values for dev environment
+monitoring:
+  podMonitorEnabled: true
+
+image:
+  repository: cr.yandex/crp2cvbrp76d7dmfegco/ghcr.io/cloudnative-pg/cloudnative-pg
+
+config:
+  data:
+    ENABLE_INSTANCE_MANAGER_INPLACE_UPDATES: 'true'
+
+resources:
+  limits:
+    memory: 512Mi  # Reduced for dev
+  requests:
+    cpu: 50m      # Reduced for dev
+    memory: 512Mi

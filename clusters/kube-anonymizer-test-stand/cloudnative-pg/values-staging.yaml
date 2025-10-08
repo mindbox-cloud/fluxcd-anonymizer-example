@@ -1,0 +1,17 @@
+# Staging environment values for CloudNativePG
+monitoring:
+  podMonitorEnabled: true
+
+image:
+  repository: cr.yandex/crp2cvbrp76d7dmfegco/ghcr.io/cloudnative-pg/cloudnative-pg
+
+config:
+  data:
+    ENABLE_INSTANCE_MANAGER_INPLACE_UPDATES: 'true'
+
+resources:
+  limits:
+    memory: 1024Mi
+  requests:
+    cpu: 100m
+    memory: 1024Mi
