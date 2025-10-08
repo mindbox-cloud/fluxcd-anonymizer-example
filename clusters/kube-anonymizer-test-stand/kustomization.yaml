@@ -4,3 +4,4 @@ resources:
 - flux-system
 - prometheus
 - cloudnative-pg
+- anonymizer

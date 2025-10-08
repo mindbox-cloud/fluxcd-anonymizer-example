@@ -137,6 +137,10 @@ spec:
     feature: anonymizer
     product: cdp
     postgres:
+      vault:
+        enabled: false
+      chaos:
+        enabled: false
       databaseName: anonymizer
       storage:
         storageClass: "yc-network-ssd"
