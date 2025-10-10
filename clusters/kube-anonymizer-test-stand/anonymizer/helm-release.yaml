@@ -120,27 +120,21 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: anonymizer-staging-pg-cluster
+  name: anonymizer-pg-cluster
   namespace: anonymizer
 spec:
   chart:
     spec:
       chart: anonymizer-postgres
-      version: '1.0.0'
+      version: '1.0.1'
       sourceRef:
         kind: HelmRepository
         name: anonymizer
   interval: 168h
   values:
-    clusterName: ru-staging-yc-kube-common1
-    environment: staging
     feature: anonymizer
     product: cdp
     postgres:
-      vault:
-        enabled: false
-      chaos:
-        enabled: false
       databaseName: anonymizer
       storage:
         storageClass: "yc-network-ssd"
@@ -159,3 +153,6 @@ spec:
           login: true
           inRoles:
           - db_owner
+      backups:
+        bucket:
+          bucketName: anonymizer-test-stand-pg-bucket
