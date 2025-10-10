@@ -31,7 +31,7 @@ spec:
           expr: sum(increase(controller_runtime_reconcile_errors_total{namespace="cloudnative-pg-operator"}[1m])) > 0
           for: 10m
           labels:
-            severity: {{ .Values.alertsSeverity | default "none" }}
+            severity: high
             product: platform
             feature: postgresql
 
