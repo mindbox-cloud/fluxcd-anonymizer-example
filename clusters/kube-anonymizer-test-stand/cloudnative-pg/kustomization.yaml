@@ -4,3 +4,7 @@ resources:
 - namespace.yaml
 - helm-repository.yaml
 - helm-release.yaml
+- image-catalog.yaml
+- prometheusrule.yaml
+- plugin-barman-cloud.yaml
+- postgres-sql-exporter-cluster-role.yaml

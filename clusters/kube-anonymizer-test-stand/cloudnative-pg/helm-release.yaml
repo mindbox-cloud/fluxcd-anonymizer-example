@@ -15,7 +15,7 @@ spec:
         namespace: cloudnative-pg-operator
   values:
     monitoring:
-      podMonitorEnabled: false # prom crd dependency
+      podMonitorEnabled: true # prom crd dependency
     
     config:
       data:
