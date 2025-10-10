@@ -156,3 +156,5 @@ spec:
       backups:
         bucket:
           bucketName: anonymizer-test-stand-pg-bucket
+      placement:
+        enabled: false
