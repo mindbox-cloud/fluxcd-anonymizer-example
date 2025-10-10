@@ -8,3 +8,5 @@ resources:
 - prometheusrule.yaml
 - plugin-barman-cloud.yaml
 - postgres-sql-exporter-cluster-role.yaml
+- barman-cloud-server-secret.yaml
+- barman-cloud-client-secret.yaml
