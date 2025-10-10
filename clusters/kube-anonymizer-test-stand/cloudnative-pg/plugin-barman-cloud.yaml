@@ -865,12 +865,11 @@ subjects:
 ---
 apiVersion: v1
 data:
-  SIDECAR_IMAGE: Y3IueWFuZGV4L2NycDJjdmJycDc2ZDdkbWZlZ2NvL2doY3IuaW8vY2xvdWRuYXRpdmUtcGcvcGx1Z2luLWJhcm1hbi1jbG91ZC1zaWRlY2FyOnYwLjUuMAo=
-kind: Secret
+  SIDECAR_IMAGE: cr.yandex/crp2cvbrp76d7dmfegco/ghcr.io/cloudnative-pg/plugin-barman-cloud-sidecar:v0.5.0
+kind: ConfigMap
 metadata:
-  name: plugin-barman-cloud-gt85cmh99d
+  name: plugin-barman-cloud-config
   namespace: cloudnative-pg-operator
-type: Opaque
 ---
 apiVersion: v1
 kind: Service
@@ -923,9 +922,9 @@ spec:
         env:
         - name: SIDECAR_IMAGE
           valueFrom:
-            secretKeyRef:
+            configMapKeyRef:
               key: SIDECAR_IMAGE
-              name: plugin-barman-cloud-gt85cmh99d
+              name: plugin-barman-cloud-config
         image: cr.yandex/crp2cvbrp76d7dmfegco/ghcr.io/cloudnative-pg/plugin-barman-cloud:v0.5.0
         name: barman-cloud
         ports:
