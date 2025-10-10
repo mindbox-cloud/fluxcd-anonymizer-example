@@ -876,9 +876,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    cnpg.io/pluginClientSecret: barman-cloud-client-tls
     cnpg.io/pluginPort: "9090"
-    cnpg.io/pluginServerSecret: barman-cloud-server-tls
   labels:
     app: barman-cloud
     cnpg.io/pluginName: barman-cloud.cloudnative-pg.io
@@ -914,12 +912,11 @@ spec:
       containers:
       - args:
         - operator
-        - --server-cert=/server/tls.crt
-        - --server-key=/server/tls.key
-        - --client-cert=/client/tls.crt
         - --server-address=:9090
         - --leader-elect
         - --log-level=debug
+        - --no-ssl
+        - --ssl-mode=disable
         env:
         - name: SIDECAR_IMAGE
           valueFrom:
@@ -947,66 +944,9 @@ spec:
           runAsUser: 10001
           seccompProfile:
             type: RuntimeDefault
-        volumeMounts:
-        - mountPath: /server
-          name: server
-        - mountPath: /client
-          name: client
       securityContext:
         runAsNonRoot: true
         seccompProfile:
           type: RuntimeDefault
       serviceAccountName: plugin-barman-cloud
-      volumes:
-      - name: server
-        secret:
-          secretName: barman-cloud-server-tls
-      - name: client
-        secret:
-          secretName: barman-cloud-client-tls
 ---
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: barman-cloud-client
-  namespace: cloudnative-pg-operator
-spec:
-  commonName: barman-cloud-client
-  duration: 2160h
-  isCA: false
-  issuerRef:
-    group: cert-manager.io
-    kind: Issuer
-    name: selfsigned-issuer
-  renewBefore: 360h
-  secretName: barman-cloud-client-tls
-  usages:
-  - client auth
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: barman-cloud-server
-  namespace: cloudnative-pg-operator
-spec:
-  commonName: barman-cloud
-  dnsNames:
-  - barman-cloud
-  duration: 2160h
-  isCA: false
-  issuerRef:
-    group: cert-manager.io
-    kind: Issuer
-    name: selfsigned-issuer
-  renewBefore: 360h
-  secretName: barman-cloud-server-tls
-  usages:
-  - server auth
----
-apiVersion: cert-manager.io/v1
-kind: Issuer
-metadata:
-  name: selfsigned-issuer
-  namespace: cloudnative-pg-operator
-spec:
-  selfSigned: {}
